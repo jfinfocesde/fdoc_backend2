@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="description" content="A modern, responsive static documentation site" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="FusionDoc" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-status-bar-style" content="default" />
+    
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="FusionDoc" />
+    <link rel="apple-touch-icon" href="pwa_icons/ios/180.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="pwa_icons/ios/152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="pwa_icons/ios/180.png" />
+    
+    <!-- Android Meta Tags -->
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1f2937" />
+    
+    <!-- Microsoft Meta Tags -->
+    <meta name="msapplication-TileColor" content="#3B82F6" />
+    <meta name="msapplication-config" content="browserconfig.xml" />
+    
+    <title>Static Documentation Site</title>
+    
+    <!-- All CSS and JS dependencies are now loaded locally via main.css and bundled modules -->
+    <!-- Tailwind CSS, Animate.css, Prism.js, KaTeX styles are imported in main.css -->
+    <!-- Mermaid.js, Chart.js, and other JS libraries are imported as ES modules -->
+
+    <style>
+      /* Custom scrollbar for webkit browsers */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      .dark ::-webkit-scrollbar-track {
+        background: #2d3748;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      /* Utility to hide scrollbar */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+    </style>
+<!-- Import map removed - all dependencies are now installed locally via npm -->
+  <script type="module" crossorigin src="/fdoc_b2/assets/index-7a676ead.js"></script>
+  <link rel="stylesheet" href="/fdoc_b2/assets/index-d7f0728e.css">
+<link rel="manifest" href="/fdoc_b2/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/fdoc_b2/registerSW.js"></script></head>
+<body class="bg-white dark:bg-gray-900">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <div id="modal-root"></div>
+    
+</body>
+</html>
