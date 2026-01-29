@@ -1,12 +1,12 @@
 ---
-title: "Backend 2 con Spring Boot"
+title: "Backend 2"
 description: "Curso completo de Desarrollo Backend con Java Spring Boot - Proyecto Integrador de 18 semanas"
 position: 1
 ---
 
 ```hero-section
 ---
-title: "Proyecto Integrador: Backend con Spring Boot"
+title: "Submódulo: Backend con Spring Boot"
 subtitle: "Construye una API REST profesional desde cero. Domina Spring Boot, JPA, Seguridad y Patrones de Diseño a lo largo de 18 semanas intensivas."
 backgroundImage: "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2106"
 overlayOpacity: 0.8
@@ -22,7 +22,7 @@ buttons:
 ---
 ```
 
-# Bienvenido al Proyecto Integrador
+# Bienvenido al Submódulo Backend 2
 
 Este curso está diseñado como un **Proyecto Integrador** que simula un entorno de desarrollo real. Durante 18 semanas, avanzarás desde los conceptos fundamentales de seguridad y APIs hasta la implementación, pruebas y despliegue de un backend robusto con Spring Boot.
 
