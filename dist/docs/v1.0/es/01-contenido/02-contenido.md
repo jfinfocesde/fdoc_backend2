@@ -4,20 +4,38 @@ description: "Guía sobre API REST"
 position: 2
 ---
 
++++hero-section
+---
+title: "Guía sobre API REST"
+subtitle: "Conceptos fundamentales, arquitectura y diseño de APIs modernas."
+backgroundImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070"
+overlayOpacity: 0.6
+---
++++
 
-!!! abstract "Resumen"
-    Una API REST es la combinación de dos ideas:  
-    1. **API** (Application Programming Interface): el contrato que define **qué** puede pedir un cliente y **qué** responderá el servidor.  
-    2. **REST** (Representational State Transfer): un **estilo arquitectónico** que prescribe **cómo** debe diseñarse ese contrato para que sea escalable, simple y uniforme.  
++++admonition
+---
+type: info
+title: "Resumen"
+---
+Una API REST es la combinación de dos ideas:
+1. **API** (Application Programming Interface): el contrato que define **qué** puede pedir un cliente y **qué** responderá el servidor.
+2. **REST** (Representational State Transfer): un **estilo arquitectónico** que prescribe **cómo** debe diseñarse ese contrato para que sea escalable, simple y uniforme.
 
 El resultado es un **servicio web sin estado** que expone recursos a través de URLs, utiliza los métodos HTTP como verbo y devuelve datos normalmente en formato JSON.
++++
 
 ---
 
 ## 1. Concepto de API
 
-!!! info "Definición formal"
-    API (Application Programming Interface) es un **conjunto de reglas y especificaciones** que permiten que dos piezas de software se comuniquen.
++++admonition
+---
+type: info
+title: "Definición formal"
+---
+API (Application Programming Interface) es un **conjunto de reglas y especificaciones** que permiten que dos piezas de software se comuniquen.
++++
 
 ### 1.1 Características esenciales
 | Característica        | Descripción breve                                                                 |
@@ -30,22 +48,27 @@ El resultado es un **servicio web sin estado** que expone recursos a través de 
 ### 1.2 Analogía cotidiana
 Imagina un **restaurante**:
 
-*   **Cliente** ↔ Aplicación que necesita datos o funciones.  
-*   **Camarero** ↔ API.  
-*   **Cocina** ↔ Sistema interno (base de datos, lógica de negocio).  
+*   **Cliente** ↔ Aplicación que necesita datos o funciones.
+*   **Camarero** ↔ API.
+*   **Cocina** ↔ Sistema interno (base de datos, lógica de negocio).
 El cliente pide al camarero (API) que lleve un pedido a la cocina y traiga la comida (datos). El cliente **no entra** en la cocina ni decide cómo se cocina el plato.
 
 ---
 
 ## 2. Generalidades de las API Web
 
-!!! question "¿Qué diferencia a una API Web de cualquier otra API?"
-    *   **Protocolo de transporte**: HTTP (o HTTPS).  
-    *   **Formato de mensaje**: JSON, XML, form-url-encoded, etc.  
-    *   **Ubicación**: Se hospeda en un servidor accesible a través de una URL pública o privada.  
++++admonition
+---
+type: info
+title: "¿Qué diferencia a una API Web de cualquier otra API?"
+---
+*   **Protocolo de transporte**: HTTP (o HTTPS).
+*   **Formato de mensaje**: JSON, XML, form-url-encoded, etc.
+*   **Ubicación**: Se hospeda en un servidor accesible a través de una URL pública o privada.
++++
 
 ### 2.1 Arquitectura cliente-servidor
-```mermaid
++++mermaid
 sequenceDiagram
     participant Cliente
     participant API
@@ -55,7 +78,7 @@ sequenceDiagram
     API->>Servidor: consulta interna
     Servidor-->>API: datos
     API-->>Cliente: 200 OK + JSON
-```
++++
 
 ### 2.2 Tipos comunes de API Web
 | Tipo           | Características principales                                                  |
@@ -70,8 +93,13 @@ sequenceDiagram
 
 ## 3. REST (Representational State Transfer)
 
-!!! quote "Roy Fielding, 2000"
-    REST es un **estilo arquitectónico**, no un estándar. Describe **seis restricciones** que, si se cumplen, producen un sistema escalable y de alto rendimiento.
++++admonition
+---
+type: note
+title: "Roy Fielding, 2000"
+---
+REST es un **estilo arquitectónico**, no un estándar. Describe **seis restricciones** que, si se cumplen, producen un sistema escalable y de alto rendimiento.
++++
 
 ### 3.1 Las 6 restricciones REST
 | Restricción                    | Qué obliga a hacer                                           | Beneficio clave                  |
@@ -84,9 +112,9 @@ sequenceDiagram
 | **Código bajo demanda (opt.)** | El servidor puede envocar scripts ejecutables (JS, applets). | Extensibilidad del cliente.      |
 
 ### 3.2 Recursos y Representaciones
-*   **Recurso**: Cualquier cosa que pueda ser nombrada (un usuario, una foto, un pedido).  
-*   **Identificador**: URI única (`/usuarios/42`).  
-*   **Representación**: Formato en que se envía (JSON, XML, imagen binaria).  
+*   **Recurso**: Cualquier cosa que pueda ser nombrada (un usuario, una foto, un pedido).
+*   **Identificador**: URI única (`/usuarios/42`).
+*   **Representación**: Formato en que se envía (JSON, XML, imagen binaria).
     Ejemplo JSON:
     ```json
     {
@@ -112,16 +140,26 @@ sequenceDiagram
 | **PATCH**| Update/Partial | No | No  | Actualizar solo ciertos campos              | `PATCH /libros/123`    |
 | **DELETE**| Delete | Sí       | No     | Eliminar un recurso                         | `DELETE /libros/123`   |
 
-!!! tip "Consejos de diseño"
-    *   No uses verbos en la URL (`/getLibros`), usa solo sustantivos.  
-    *   Usa códigos de estado correctos: 201 (Created), 204 (No Content), 400, 401, 404, 409, 500.
++++admonition
+---
+type: tip
+title: "Consejos de diseño"
+---
+*   No uses verbos en la URL (`/getLibros`), usa solo sustantivos.
+*   Usa códigos de estado correctos: 201 (Created), 204 (No Content), 400, 401, 404, 409, 500.
++++
 
 ---
 
 ## 5. Endpoints
 
-!!! definition "Endpoint"
-    Es la **combinación de un verbo HTTP y una ruta** que apunta a un recurso o colección.
++++admonition
+---
+type: info
+title: "Endpoint"
+---
+Es la **combinación de un verbo HTTP y una ruta** que apunta a un recurso o colección.
++++
 
 ### 5.1 Convenciones de nomenclatura
 | Recurso        | Colección (plural) | Ejemplo colección | Ejemplo elemento |
@@ -131,24 +169,34 @@ sequenceDiagram
 | Foto de perfil | usuarios/{id}/foto | —                 | `GET /usuarios/5/foto` |
 
 ### 5.2 Filtrado, paginado y orden
-!!! example "Parámetros de consulta"
-    ```
-    GET /libros?autor=Garcia&pagina=3&tamanio=20&orden=titulo,asc
-    ```
++++admonition
+---
+type: note
+title: "Parámetros de consulta"
+---
+```
+GET /libros?autor=Garcia&pagina=3&tamanio=20&orden=titulo,asc
+```
++++
 
 ### 5.3 Versionado de API
-*   Por URL: `/api/v1/libros`  
+*   Por URL: `/api/v1/libros`
 *   Por cabecera: `Accept: application/vnd.miapp.v1+json`
 
 ---
 
 ## 6. Formato JSON
 
-!!! success "¿Por qué JSON?"
-    *   Ligero (menos verboso que XML).  
-    *   Nativo en JavaScript.  
-    *   Fácil de leer y escribir para humanos y máquinas.  
-    *   Soporte universal en lenguajes modernos.
++++admonition
+---
+type: success
+title: "¿Por qué JSON?"
+---
+*   Ligero (menos verboso que XML).
+*   Nativo en JavaScript.
+*   Fácil de leer y escribir para humanos y máquinas.
+*   Soporte universal en lenguajes modernos.
++++
 
 ### 6.1 Estructura básica
 ```json
@@ -166,23 +214,28 @@ sequenceDiagram
 ```
 
 ### 6.2 Buenas prácticas
-*   Usar **camelCase** para claves (`userName`).  
-*   Incluir **enlaces (HATEOAS)** para facilitar la navegación.  
-*   Evitar anidamientos demasiado profundos (≤ 3 niveles).  
+*   Usar **camelCase** para claves (`userName`).
+*   Incluir **enlaces (HATEOAS)** para facilitar la navegación.
+*   Evitar anidamientos demasiado profundos (≤ 3 niveles).
 *   Usar **fechas en ISO-8601** (`2024-07-19T15:30:00Z`).
 
 ---
 
 ## 7. Servicio en la Nube
 
-!!! cloud "¿Qué significa «servicio en la nube»?"
-    Es un **entorno de ejecución remoto** (IaaS, PaaS o SaaS) donde se despliega la API REST, ofreciendo:
++++admonition
+---
+type: info
+title: "¿Qué significa «servicio en la nube»?"
+---
+Es un **entorno de ejecución remoto** (IaaS, PaaS o SaaS) donde se despliega la API REST, ofreciendo:
 
-*   Escalabilidad automática (auto-scaling).  
-*   Alta disponibilidad (99.9% SLA).  
-*   Gestión de certificados SSL/TLS.  
-*   Balanceo de carga global.  
+*   Escalabilidad automática (auto-scaling).
+*   Alta disponibilidad (99.9% SLA).
+*   Gestión de certificados SSL/TLS.
+*   Balanceo de carga global.
 *   Integración con CI/CD.
++++
 
 ### 7.1 Proveedores habituales
 | Proveedor | Servicio de alojamiento de API | Características destacadas |
@@ -199,16 +252,21 @@ sam deploy --guided \
   --capabilities CAPABILITY_IAM
 ```
 Esto genera:
-*   Una función Lambda con tu código.  
-*   Un API Gateway que mapea URLs a la Lambda.  
+*   Una función Lambda con tu código.
+*   Un API Gateway que mapea URLs a la Lambda.
 *   Logs en CloudWatch y monitoreo en CloudWatch Alarms.
 
 ---
 
 ## 8. Clientes REST
 
-!!! user "¿Qué es un cliente REST?"
-    Cualquier programa que **consume** la API siguiendo el contrato REST.
++++admonition
+---
+type: info
+title: "¿Qué es un cliente REST?"
+---
+Cualquier programa que **consume** la API siguiendo el contrato REST.
++++
 
 ### 8.1 Tipos de clientes
 | Tipo                 | Ejemplos                                | Consideraciones |
@@ -233,26 +291,24 @@ curl -H "Authorization: Bearer $TOKEN" \
 ### 8.3 SDKs generados
 Muchos proveedores publican **SDKs oficiales** que abstraen las peticiones HTTP:
 
-=== "JavaScript (Axios)"
-    ```js
-    import axios from 'axios';
-    const api = axios.create({baseURL: 'https://api.miapp.com/v1'});
-    const {data} = await api.get('/libros');
-    ```
++++tabs
+---[tab title="JavaScript (Axios)" lang="js"]---
+import axios from 'axios';
+const api = axios.create({baseURL: 'https://api.miapp.com/v1'});
+const {data} = await api.get('/libros');
 
-=== "Python (requests)"
-    ```python
-    import requests
-    r = requests.get('https://api.miapp.com/v1/libros',
-                     headers={'Authorization': f'Bearer {token}'})
-    libros = r.json()
-    ```
+---[tab title="Python (requests)" lang="py"]---
+import requests
+r = requests.get('https://api.miapp.com/v1/libros',
+                 headers={'Authorization': f'Bearer {token}'})
+libros = r.json()
++++
 
 ---
 
 ## 9. Resumen visual
 
-```mermaid
++++mermaid
 graph TD
   subgraph Cliente
     A[SPA Web] -->|HTTPS| GW
@@ -264,13 +320,13 @@ graph TD
   GW -->|invoca| S2[Lambda / Contenedor]
   S1 -->|query| DB[(Base de datos)]
   style GW fill:#f9f,stroke:#333
-```
++++
 
 ---
 
 ## 10. Recursos adicionales
 
-*   [Documentación oficial de REST – Roy Fielding](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm)  
-*   [OpenAPI 3.x](https://spec.openapis.org/oas/v3.1.0) – Estandariza la descripción de tu API REST.  
-*   [Postman Learning Center](https://learning.postman.com) – Pruebas y generación de documentación.  
+*   [Documentación oficial de REST – Roy Fielding](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm)
+*   [OpenAPI 3.x](https://spec.openapis.org/oas/v3.1.0) – Estandariza la descripción de tu API REST.
+*   [Postman Learning Center](https://learning.postman.com) – Pruebas y generación de documentación.
 *   [Google Cloud API Design Guide](https://cloud.google.com/apis/design) – Buenas prácticas de Google.
