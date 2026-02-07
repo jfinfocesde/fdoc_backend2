@@ -1,5 +1,5 @@
 ---
-title: "Guía sobre API REST"
+title: "Semana 2: Guía sobre API REST"
 description: "Guía sobre API REST"
 position: 2
 ---
@@ -12,6 +12,14 @@ backgroundImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q
 overlayOpacity: 0.6
 ---
 +++
+
+
+```video
+---
+src: "https://vimeo.com/1162817857?share=copy&fl=sv&fe=ci"
+title: "API REST"
+---
+```
 
 +++admonition
 ---
@@ -189,35 +197,203 @@ GET /libros?autor=Garcia&pagina=3&tamanio=20&orden=titulo,asc
 
 +++admonition
 ---
-type: success
-title: "¿Por qué JSON?"
+type: info
+title: "¿Qué es JSON?"
 ---
-*   Ligero (menos verboso que XML).
-*   Nativo en JavaScript.
-*   Fácil de leer y escribir para humanos y máquinas.
-*   Soporte universal en lenguajes modernos.
+**JSON (JavaScript Object Notation)** es un formato ligero de intercambio de datos. Es fácil de leer y escribir para los humanos, y fácil de analizar y generar para las máquinas. Se basa en un subconjunto del lenguaje de programación JavaScript, pero es **completamente independiente del lenguaje**.
 +++
 
-### 6.1 Estructura básica
+### 6.1 ¿Por qué JSON?
+
++++admonition
+---
+type: success
+title: "Ventajas Clave"
+---
+*   **Ligero y Compacto**: Menos verboso que XML, lo que reduce el ancho de banda.
+*   **Legible**: Su estructura es intuitiva y limpia.
+*   **Nativo en la Web**: Se integra perfectamente con JavaScript en los navegadores.
+*   **Universal**: Prácticamente todos los lenguajes de programación modernos tienen librerías estándar para manejar JSON.
++++
+
+### 6.2 Tipos de datos soportados
+
+JSON soporta un conjunto limitado pero poderoso de tipos de datos:
+
+| Tipo | Descripción | Ejemplo |
+|:---:|---|---|
+| **String** | Cadena de texto entre comillas dobles. Soporta Unicode. | `"Hola Mundo"` |
+| **Number** | Entero o punto flotante. | `42`, `3.14`, `-10` |
+| **Boolean** | Valor lógico verdadero o falso (minúsculas). | `true`, `false` |
+| **Null** | Valor nulo o vacío. | `null` |
+| **Object** | Colección no ordenada de pares clave/valor. | `{"id": 1}` |
+| **Array** | Lista ordenada de valores. | `[1, 2, 3]` |
+
+### 6.3 Reglas de Sintaxis (¡Estrictas!)
+
+A diferencia de los objetos de JavaScript (donde las claves pueden no tener comillas), JSON tiene reglas muy estrictas:
+
+1.  **Claves**: Deben ir siempre entre **comillas dobles** (`"key": "value"`). Las comillas simples `'` no son válidas.
+2.  **Strings**: Siempre con comillas dobles (`"texto"`).
+3.  **Comas**: No se permite una coma al final del último elemento de un objeto o array ("trailing comma").
+4.  **Comentarios**: JSON **no soporta comentarios**.
+
++++admonition
+---
+type: warning
+title: "Errores comunes de sintaxis"
+---
+```json
+// ESTO ES INVÁLIDO EN JSON ❌
+{
+  key: "value",     // Falta comillas en la clave
+  "list": [1, 2, ], // Coma extra al final
+  'name': 'Mario',  // Comillas simples prohibidas
+  // Esto es un comentario // Prohibido
+}
+```
++++
+
+### 6.4 Ejemplos Detallados
+
+#### Objeto Simple
 ```json
 {
-  "id": 7,
-  "titulo": "El Quijote",
-  "autor": {
-    "nombre": "Miguel",
-    "apellido": "de Cervantes"
-  },
-  "tags": ["novela", "clásico", "españa"],
-  "publicado": 1605,
-  "disponible": true
+  "id": 101,
+  "nombre": "Laptop Pro",
+  "precio": 1299.99,
+  "enStock": true,
+  "descripcion": null
 }
 ```
 
-### 6.2 Buenas prácticas
-*   Usar **camelCase** para claves (`userName`).
-*   Incluir **enlaces (HATEOAS)** para facilitar la navegación.
-*   Evitar anidamientos demasiado profundos (≤ 3 niveles).
-*   Usar **fechas en ISO-8601** (`2024-07-19T15:30:00Z`).
+#### Estructura Anidada y Arrays
+Este ejemplo muestra un objeto complejo con arrays y objetos anidados:
+
+```json
+{
+  "usuario": {
+    "id": 456,
+    "perfil": "admin",
+    "detalles": {
+      "nombre": "Ana Pérez",
+      "email": "ana@example.com"
+    }
+  },
+  "permisos": ["leer", "escribir", "borrar"],
+  "historialLogin": [
+    {
+      "fecha": "2023-10-01T08:30:00Z",
+      "ip": "192.168.1.50"
+    },
+    {
+      "fecha": "2023-10-02T09:15:00Z",
+      "ip": "192.168.1.51"
+    }
+  ]
+}
+```
+
+### 6.5 Comparación: JSON vs XML
+
++++comparison-table
+---
+headers:
+  - "Característica"
+  - { text: "JSON", highlight: true }
+  - "XML"
+rows:
+  - ["Legibilidad", "Alta, estructura limpia", "Media, muchas etiquetas de cierre"]
+  - ["Tamaño", "Compacto", "Más pesado por la repetición de etiquetas"]
+  - ["Tipos de datos", "Nativos (string, number, bool, array)", "Todo es texto (se debe inferir)"]
+  - ["Parsing (JS)", "Nativo (`JSON.parse()`)", "Requiere XML DOM Parser"]
+  - ["Esquemas", "JSON Schema (opcional)", "XSD (XML Schema Definition), DTD"]
+---
++++
+
+### 6.6 Serialización y Deserialización
+
+El proceso de convertir un objeto en memoria a texto JSON para enviarlo por la red se llama **Serialización**. El proceso inverso se llama **Deserialización**.
+
++++steps
+### 1. Objeto en Memoria
+Tienes un objeto en tu programa (variable en JS, diccionario en Python, etc.).
+Ej: `user = { id: 1, name: "Luisa" }`
+
+### 2. Serialización (Marshalling)
+Conviertes ese objeto a una cadena de texto (String) con formato JSON.
+`'{"id":1,"name":"Luisa"}'`
+
+### 3. Transmisión
+La cadena de texto viaja por la red (en el Body de una petición HTTP).
+
+### 4. Deserialización (Unmarshalling)
+El receptor recibe el texto y lo convierte a un objeto nativo de su lenguaje para usarlo.
++++
+
+#### Ejemplos de Código
+
++++tabs
+---[tab title="JavaScript/Node.js" lang="js"]---
+// Objeto JS nativo
+const producto = {
+  id: 1,
+  nombre: "Café",
+  precio: 5.5
+};
+
+// 1. Serializar (Objeto -> String JSON)
+const jsonString = JSON.stringify(producto);
+console.log(jsonString); 
+// Salida: '{"id":1,"nombre":"Café","precio":5.5}'
+
+// 2. Deserializar (String JSON -> Objeto)
+const datosRecibidos = '{"id":2,"nombre":"Té","precio":4.0}';
+const nuevoProducto = JSON.parse(datosRecibidos);
+console.log(nuevoProducto.nombre); // "Té"
+---
+---[tab title="Python" lang="py"]---
+import json
+
+# Diccionario Python
+producto = {
+    "id": 1,
+    "nombre": "Café",
+    "precio": 5.5
+}
+
+# 1. Serializar (Dict -> String JSON)
+json_string = json.dumps(producto)
+print(json_string)
+# Salida: '{"id": 1, "nombre": "Café", "precio": 5.5}'
+
+# 2. Deserializar (String JSON -> Dict)
+datos_recibidos = '{"id": 2, "nombre": "Té", "precio": 4.0}'
+nuevo_producto = json.loads(datos_recibidos)
+print(nuevo_producto['nombre']) # "Té"
+---
++++
+
+### 6.7 ¿Cuándo usar JSON?
+
+*   **APIs REST**: Es el estándar de facto.
+*   **Configuración**: Archivos como `.json` (package.json, tsconfig.json).
+*   **NoSQL**: Bases de datos como MongoDB almacenan datos en BSON (Binary JSON).
+*   **Local Storage**: Para guardar datos en el navegador.
+
+### 6.8 Buenas Prácticas
+
++++admonition
+---
+type: tip
+title: "Consejos para diseñar JSON"
+---
+*   **Convención de Nombres**: Usa **camelCase** para las claves (`nombreUsuario`, `fechaCreacion`) si trabajas con JS, o **snake_case** si tu backend es Python/Ruby, aunque camelCase es el estándar más común en APIs JSON.
+*   **Fechas**: JSON no tiene tipo fecha. Usa el estándar **ISO-8601** (`"2024-11-25T14:30:00Z"`).
+*   **Estructura Plana**: Evita anidar objetos demasiado profundo (más de 3 niveles) para facilitar el acceso.
+*   **Arrays Homogéneos**: Intenta que los arrays contengan elementos del mismo tipo.
+*   **HATEOAS**: Incluye enlaces en la respuesta para guiar al cliente (`_links` o `enlaces`).
++++
 
 ---
 

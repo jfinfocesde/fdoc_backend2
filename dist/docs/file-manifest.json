@@ -1,7 +1,8 @@
 {
   "files": [
-    "v1.0/es/01-contenido/01-contenido.md",
-    "v1.0/es/01-contenido/02-contenido.md",
+    "v1.0/es/01-contenido/00-contenido.md",
+    "v1.0/es/01-contenido/01-semana1.md",
+    "v1.0/es/01-contenido/02-semana2.md",
     "v1.0/es/01-contenido/index.md",
     "v1.0/es/index.md",
     "v2.0/es/components/accordion.md",
