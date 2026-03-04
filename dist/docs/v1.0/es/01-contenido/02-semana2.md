@@ -26,11 +26,16 @@ title: "API REST"
 type: info
 title: "Resumen"
 ---
-Una API REST es la combinación de dos ideas:
-1. **API** (Application Programming Interface): el contrato que define **qué** puede pedir un cliente y **qué** responderá el servidor.
-2. **REST** (Representational State Transfer): un **estilo arquitectónico** que prescribe **cómo** debe diseñarse ese contrato para que sea escalable, simple y uniforme.
+Una API REST (Representational State Transfer) es un estilo arquitectónico para el desarrollo de servicios web distribuidos, basado en el protocolo HTTP, que permite la comunicación entre sistemas a través de la manipulación de recursos identificables y accesibles mediante URLs.
 
-El resultado es un **servicio web sin estado** que expone recursos a través de URLs, utiliza los métodos HTTP como verbo y devuelve datos normalmente en formato JSON.
+Los principios fundamentales que la definen como estilo arquitectónico son:
+1.  **Cliente-Servidor:** Separa la interfaz de usuario de la lógica de almacenamiento de datos, mejorando la portabilidad y la escalabilidad.
+2.  **Sin Estado (Stateless):** Cada solicitud del cliente al servidor debe contener toda la información necesaria para que el servidor la procese, sin depender de ningún contexto de sesión almacenado en el servidor, lo que optimiza la escalabilidad y la fiabilidad.
+3.  **Cacheable:** Las respuestas deben indicar explícitamente si son cacheables o no, permitiendo que los clientes o intermediarios almacenen datos para reducir la latencia y la carga del servidor.
+4.  **Sistema por Capas:** Un cliente puede no saber si está conectado directamente al servidor final o a un intermediario, lo que facilita la escalabilidad y la seguridad.
+5.  **Interfaz Uniforme:** Este es el principio central y crítico, que incluye la identificación de recursos mediante URIs, la manipulación de recursos a través de representaciones (ej. JSON), mensajes auto-descriptivos que contienen suficiente información para su procesamiento, y Hypermedia como Motor del Estado de la Aplicación (HATEOAS), donde el cliente transiciona a través de los estados de la aplicación siguiendo enlaces proporcionados en las representaciones.
+
+Estos principios hacen que las API REST sean una elección popular por su simplicidad, robustez e interoperabilidad. La statelessness y la capacidad de caché facilitan una escalabilidad masiva y mejoran el rendimiento. La separación cliente-servidor y la interfaz uniforme promueven la flexibilidad, la independencia tecnológica y el desarrollo distribuido, permitiendo la evolución y el mantenimiento eficiente de sistemas en entornos heterogéneos.
 +++
 
 ---

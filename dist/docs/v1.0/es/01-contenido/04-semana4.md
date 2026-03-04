@@ -145,19 +145,19 @@ Para crear una API RESTful completa, selecciona las siguientes dependencias:
 +++
 
 **Dependencias Web:**
-*   **Spring Web**: Para crear APIs REST con Spring MVC
-*   **Spring Boot DevTools**: Reinicio automático durante desarrollo
+*   **Spring Web:** Es el motor fundamental para crear aplicaciones web y APIs RESTful. Incluye Spring MVC (Modelo-Vista-Controlador), provee el servidor web embebido Apache Tomcat por defecto, y maneja de manera automática la conversión de objetos Java a formato JSON (y viceversa) gracias a la librería Jackson incluida.
+*   **Spring Boot DevTools:** Es una herramienta vital para la experiencia de desarrollo local. Proporciona recargas automáticas (LiveReload) y reinicios ultrarrápidos de la aplicación cada vez que guardas un cambio en el código, evitando que tengas que detener y arrancar el servidor web manualmente una y otra vez.
 
 **Dependencias de Base de Datos:**
-*   **Spring Data JPA**: Para acceso a datos con JPA/Hibernate
-*   **PostgreSQL Driver** o **MySQL Driver** o **H2 Database**: Driver de tu base de datos
+*   **Spring Data JPA:** Esta dependencia integra el estándar JPA (Jakarta Persistence API) junto con Hibernate (el ORM por defecto) dentro del ecosistema de Spring. Nos permite interactuar con bases de datos relacionales utilizando solo objetos e interfaces de Java orgánico, abstrayéndonos de tener que escribir consultas SQL complejas para las operaciones CRUD gracias al patrón Repositorio.
+*   **PostgreSQL Driver (o MySQL Driver):** Es el controlador nativo (adaptador) necesario para que el código Java pueda establecer una conexión real, física y entender el dialecto del motor de base de datos específico que hayas optado usar. Spring Data JPA envía las instrucciones estándar, y este driver las traduce para que PostgreSQL o MySQL las operen.
 
 **Dependencias de Validación:**
-*   **Validation**: Para validar datos con anotaciones
+*   **Validation:** Proporciona la especificación Hibernate Validator, que implementa el estándar Jakarta Bean Validation. Es crucial para proteger la integridad de los datos de la aplicación. Permite utilizar anotaciones como `@NotNull`, `@Size`, `@Email` o `@Positive` en los DTOs o Entidades, asegurando que cualquier JSON entrante cumpla con las reglas de negocio antes de siquiera alcanzar la lógica de nuestros servicios.
 
 **Dependencias Adicionales Útiles:**
-*   **Lombok**: Reduce código boilerplate (getters, setters, constructores)
-*   **Spring Boot Actuator**: Monitoreo y métricas de la aplicación
+*   **Lombok:** Es una librería especializada en tiempo de compilación. Su función principal es eliminar drásticamente el código Java "boilerplate" (repetitivo) del proyecto. Mediante anotaciones limpias (`@Data`, `@Getter`, `@Setter`, `@Builder`), Lombok autogenera getters, setters, constructores y métodos equals/hashcode, resultando en clases increíblemente más cortas y mantenibles.
+*   **Spring Boot Actuator:** Provee endpoints web internos listos para usar que te permiten monitorear y gestionar la aplicación en entornos productivos. Muestra métricas de salud (health checks), estado de la memoria, conexiones a la base de datos e información de las variables de entorno, todo vital para el monitoreo tipo DevOps.
 
 ### 4.3 Paso a Paso: Crear un Proyecto
 

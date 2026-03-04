@@ -42,7 +42,18 @@ title: "Arquitectura por Capas"
 type: info
 title: "Definición"
 ---
-La **arquitectura por capas** (Layered Architecture) es un patrón de diseño que organiza el código en capas horizontales, donde cada capa tiene una responsabilidad específica y bien definida. Cada capa solo puede comunicarse con la capa inmediatamente inferior.
+La **arquitectura por capas** es un patrón de diseño fundamental en el desarrollo de software moderno, especialmente promovido y facilitado por el framework Spring Boot. Este enfoque divide una aplicación en unidades lógicas (capas) apiladas horizontalmente, donde cada capa tiene responsabilidades únicas, cohesivas y bien establecidas. 
+
+El principio fundamental que rige este modelo es la **separación de responsabilidades (Separation of Concerns)** y el flujo de información unidireccional: una capa superior únicamente puede comunicarse con la capa inmediatamente inferior, garantizando así el bajo acoplamiento.
+
+En un proyecto estándar de API REST con Spring Boot, solemos dividir el sistema en las siguientes capas principales:
+
+1.  **Capa de Presentación / Controladores (Controllers):** Es la puerta de entrada a la aplicación. Su único propósito es exponer los endpoints (URLs), recibir las peticiones HTTP (GET, POST, etc.) del cliente (un navegador, una app móvil, otro servicio), validar formatos básicos, y delegar el procesamiento real a la capa inferior. No debe contener ninguna lógica de negocio compleja ni acceder a la base de datos.
+2.  **Capa de Lógica de Negocio / Servicios (Services):** Es el "cerebro" de la aplicación. Aquí residen todas las reglas del negocio, cálculos, validaciones complejas, orquestación de llamadas a diferentes repositorios y manejo de transacciones seguras (`@Transactional`). Aisla la lógica central de cómo se exponen los datos (Controladores) o cómo se almacenan (Repositorios).
+3.  **Capa de Acceso a Datos / Repositorios (Repositories):** Es la única capa autorizada para comunicarse con la base de datos (o sistemas de almacenamiento externos). Se encarga exclusivamente de las operaciones CRUD (Crear, Leer, Actualizar, Borrar) y de ejecutar consultas SQL/JPQL utilizando Spring Data JPA para abstraer la complejidad técnica del proveedor de base de datos.
+4.  **Capa de Dominio / Entidades (Entities o Models):** Funciona como la base estructural transversar de toda la aplicación, y representa el mapeo conceptual desde el paradigma orientado a objetos (Java) hacia las tablas de la base de datos relacional (mediante un motor ORM como Hibernate). Estas clases POJO ("Plain Old Java Object") viajan y son manipuladas a través del flujo de llamadas, desde los repositorios hacia los servicios (donde normalmente son transformadas en DTOs o interactúan con la lógica del negocio).
+
+Implementar este patrón asegura proyectos altamente escalables, facilitando la creación de pruebas unitarias (ya que cada capa es fácilmente mockeable), y permitiendo que equipos grandes trabajen simultáneamente en diferentes capas sin generar conflictos masivos.
 +++
 
 ### 1.1 Beneficios de la Arquitectura por Capas
@@ -1041,3 +1052,53 @@ title: "Enlaces Útiles"
 *   [Baeldung Spring Tutorials](https://www.baeldung.com/spring-tutorial) - Tutoriales completos
 *   [Spring Boot REST API Best Practices](https://www.baeldung.com/rest-with-spring-series) - Mejores prácticas
 +++
+
+---
+
+## 9. Configuración de Base de Datos y Variables de Entorno
+
+### 9.1 El archivo `application.properties`
+
+En Spring Boot, el archivo `src/main/resources/application.properties` (o `application.yml`) es el lugar central para configurar el comportamiento interno de la aplicación y sus frameworks (como el puerto del servidor, conexiones a base de datos, JPA/Hibernate, etc.).
+
+Sin embargo, **NUNCA debes guardar credenciales reales o secretos en código fuente (repositorio git)** usando este archivo de forma hardcodeada.
+
+### 9.2 El archivo `.env` y las Variables de Entorno
+
+Para proteger los datos sensibles, el estándar de la industria es utilizar un archivo oculto llamado `.env` (que debe estar incluido en el `.gitignore` para no subirlo al repositorio). Este archivo almacena las **variables de entorno local**.
+
+En un entorno de producción (como un servicio en la nube), estas variables se configuran directamente en el panel de control del servidor, no a través de un archivo `.env`.
+
+### 9.3 Integración con PostgreSQL
+
+Para conectar Spring Boot con PostgreSQL usando variables de entorno, sigue este proceso:
+
+#### 1. Crear el archivo `.env`
+En la raíz de tu proyecto, crea un archivo `.env` con tus credenciales locales:
+```env
+DB_URL=jdbc:postgresql://localhost:5432/mitienda_db
+DB_USERNAME=postgres
+DB_PASSWORD=mi_password_secreto
+```
+
+#### 2. Configurar `application.properties`
+Modifica el archivo `application.properties` para que inyecte dinámicamente el valor de las variables de entorno usando la sintaxis `${NOMBRE_VARIABLE}`:
+
+```properties
+# Conexión a PostgreSQL (Mapeo a variables de entorno)
+spring.datasource.url=${DB_URL}
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
+
+# Configuración de JPA (Hibernate)
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+```
+
+#### 3. Cargar el `.env` en tu IDE
+Spring Boot lee variables de entorno del sistema automáticamente, pero no carga archivos `.env` por defecto mediante una dependencia (como en Node.js con `dotenv`). La forma más común de inyectarlas en desarrollo local es:
+1. Usando el plugin **"EnvFile"** en IntelliJ IDEA.
+2. Editando la configuración de ejecución de **VS Code** (en `.vscode/launch.json` especificando el atributo `"envFile": "${workspaceFolder}/.env"`).
+3. Añadiendo una dependencia como `me.paulschwarz:spring-dotenv` en tu `pom.xml`.

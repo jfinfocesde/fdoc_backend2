@@ -34,7 +34,7 @@ En esta unidad dominarás el modelado de datos en Spring Boot:
 type: info
 title: "Definición"
 ---
-Una **Entidad** en Spring Boot es una clase Java (POJO) que representa una tabla en la base de datos.
+En el contexto de un proyecto Spring Boot que utiliza Spring Data JPA, una Entidad es una clase Java POJO (Plain Old Java Object) que representa una tabla en una base de datos relacional. Cada instancia de esta clase corresponde a una fila en dicha tabla, y sus propiedades (atributos) se mapean a las columnas de la tabla. Su propósito fundamental es modelar el dominio de la aplicación, proporcionando una representación orientada a objetos de los datos persistentes. Facilita el mapeo objeto-relacional (ORM) actuando como un puente entre el paradigma orientado a objetos de Java y el paradigma relacional de las bases de datos. Esto permite a los desarrolladores interactuar con los datos utilizando objetos Java estándar, delegando a JPA (y su implementación, como Hibernate) la tarea de traducir estas operaciones a sentencias SQL. Dos anotaciones clave que se utilizan habitualmente para definirla son: `@Entity`, que marca la clase como una entidad persistente, y `@Id`, que designa el campo que servirá como clave primaria de la entidad en la base de datos.
 +++
 
 ### Ejemplo Básico con Lombok
@@ -441,16 +441,37 @@ A continuación, una lista completa de las anotaciones más utilizadas en Entida
 
 ### Anotaciones de Lombok
 
-| Anotación | Descripción | Notas Importantes |
-| :--- | :--- | :--- |
-| **`@Getter`** | Genera métodos `getNombreCampo()` para todos los campos. | Seguro para usar en entidades. |
-| **`@Setter`** | Genera métodos `setNombreCampo()` para todos los campos. | Seguro para usar en entidades. |
-| **`@NoArgsConstructor`** | Genera un constructor vacío (obligatorio para Hibernate/JPA). | **Obligatorio** en entidades JPA. |
-| **`@AllArgsConstructor`** | Genera un constructor con todos los argumentos. | Útil para tests o builders. |
-| **`@Builder`** | Implementa el patrón Builder (`Usuario.builder().nombre("...").build()`). | Facilita la creación de objetos. |
-| **`@Data`** | Combina `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode`. | **PELIGROSO** en entidades con relaciones bidireccionales (loop infinito en `toString`). |
-| **`@ToString`** | Genera el método `toString()`. | Usar `exclude` para relaciones Lazy (`@ToString.Exclude`). |
-| **`@EqualsAndHashCode`** | Genera `equals()` y `hashCode()`. | Precaución en entidades, mejor usar solo el ID. |
+Lombok es una librería que nos ayuda a reducir el código repetitivo (boilerplate) en Java. A continuación se explican detalladamente sus principales anotaciones y cómo se comportan en entidades JPA:
+
+#### 1. `@Getter` y `@Setter`
+*   **Qué hace:** Generan automáticamente los métodos `getAttr()` y `setAttr()` para todos los atributos de la clase.
+*   **Uso:** Evita escribir docenas de líneas de getters y setters manualmente.
+*   **En JPA:** Son totalmente **seguros** y recomendados para usar en entidades.
+
+#### 2. `@NoArgsConstructor`
+*   **Qué hace:** Genera un constructor vacío sin parámetros (ej. `public Usuario() {}`).
+*   **En JPA:** Es **estrictamente obligatorio** tener un constructor vacío en las entidades. Hibernate/JPA lo utiliza tras bambalinas para instanciar los objetos al extraer datos de la base de datos a través de Reflection.
+
+#### 3. `@AllArgsConstructor`
+*   **Qué hace:** Genera un constructor que recibe como parámetros todos los atributos de la clase.
+*   **En JPA:** Es opcional, pero muy útil al momento de crear objetos en pruebas unitarias o cuando se combina con el patrón `Builder`.
+
+#### 4. `@Builder`
+*   **Qué hace:** Implementa el patrón de diseño Builder. Crea una clase interna estática que permite construir objetos encadenando métodos de forma fluida y clara.
+*   **Ejemplo:** `Usuario.builder().nombre("Juan").email("juan@mail.com").build();`
+*   **En JPA:** Es altamente recomendado porque facilita instanciar entidades complejas sin preocuparse por el orden de los parámetros en el constructor.
+
+#### 5. `@Data`
+*   **Qué hace:** Es una macro-anotación que agrupa funcionalidades. Equivale a poner `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode` y `@RequiredArgsConstructor` a la vez.
+*   **En JPA:** ⚠️ **EXTREMADAMENTE PELIGROSO**. Evita usarlo en entidades si tienes relaciones de mapeo (`@OneToMany`, `@ManyToMany`, etc.). El método `toString()` y `hashCode()` autogenerado intentará recorrer las relaciones (ej. `Usuario` imprimirá sus `Roles`, y los `Roles` imprimirán de vuelta a los `Usuarios`), lo que provocará un bucle recursivo infinito y lanzará un error crítico de memoria (`StackOverflowError`).
+
+#### 6. `@ToString`
+*   **Qué hace:** Autogenera el método `toString()` incluyendo los nombres de todos los campos y sus valores.
+*   **En JPA:** Si lo necesitas, debes asegurarte de excluir explícitamente las colecciones relacionadas (usando `@ToString.Exclude` sobre el atributo) para evitar el bucle infinito o que se disparen consultas adicionales indeseadas a la base de datos (problema del N+1 con Lazy loading).
+
+#### 7. `@EqualsAndHashCode`
+*   **Qué hace:** Genera los métodos `equals()` y `hashCode()` comprobando todos los atributos de la clase.
+*   **En JPA:** Debes tener cuidado. Generalmente en bases de datos relacionales, dos entidades son consideradas "la misma" si tienen el mismo identificador o clave primaria (`Id`), no necesariamente si todos sus campos son iguales. Generarlos por defecto puede causar comportamiento impredecible cuando agrupas entidades en un `Set` o colecciones similares.
 
 ### Anotaciones de JSON (Jackson)
 
@@ -460,3 +481,12 @@ A continuación, una lista completa de las anotaciones más utilizadas en Entida
 | **`@JsonBackReference`** | Va en el lado "Hijo". Evita serializar para romper el bucle infinito. |
 | **`@JsonIgnore`** | Ignora completamente un campo al convertir a JSON. |
 | **`@JsonProperty`** | Cambia el nombre del campo en el JSON resultante. |
+
+### Anotaciones de Validación (Jakarta Validation)
+
+Se utilizan para asegurar que los datos cumplan con ciertas reglas antes de procesarlos o persistirlos en la base de datos.
+
+| Anotación | Descripción | Ejemplo |
+| :--- | :--- | :--- |
+| **`@NotNull`** | Valida que el valor del campo no sea nulo. | `@NotNull(message = "El nombre no puede ser nulo")` |
+| **`@Positive`** | Valida que el número numérico sea estrictamente mayor que cero. | `@Positive(message = "El precio debe ser positivo")` |
