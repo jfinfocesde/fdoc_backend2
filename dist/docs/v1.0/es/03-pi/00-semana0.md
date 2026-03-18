@@ -4,6 +4,7 @@ description: "Propuesta Definitiva para el Proyecto Integrador del Nivel 3"
 position: 0
 ---
 
+
 # Propuesta Definitiva: Proyecto Integrador Nivel 2
 
 **Dirigido a:** Cuerpo Docente, Nivel 2 - Técnica en Desarrollo de Software
