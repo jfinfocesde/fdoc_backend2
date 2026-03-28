@@ -4,146 +4,131 @@ description: "Propuesta Definitiva para el Proyecto Integrador del Nivel 3"
 position: 0
 ---
 
+# Propuesta Definitiva: Proyecto Integrador Nivel 3
 
-# Propuesta Definitiva: Proyecto Integrador Nivel 2
-
-**Dirigido a:** Cuerpo Docente, Nivel 2 - Técnica en Desarrollo de Software
-**Módulos Involucrados:** BackEnd 1 (Lenguaje), FrontEnd 1 (Lenguaje), Metodologías Ágiles.
+**Dirigido a:** Cuerpo Docente, Nivel 3 - Técnica en Desarrollo de Software  
+**Módulos Involucrados:** Backend 2 (Framework), Frontend 2 (Framework), Nuevas Tecnologías de Programación.  
 **Fecha:** 29 de octubre de 2025
 
 ## A. Resumen Ejecutivo
-Esta propuesta detalla un Proyecto Integrador (PI) para el Nivel 2, alineado con los planeadores de BackEnd 1, FrontEnd 1 y Metodologías Ágiles. A diferencia del Nivel 1 (integración conceptual), el Nivel 2 se enfoca en la integración de procesos y el desarrollo desacoplado.
+Esta propuesta detalla el Proyecto Integrador (PI) para el Nivel 3, el cual culmina el proceso formativo logrando la integración técnica total (Full-Stack). El proyecto está diseñado para alinear los planeadores de Backend 2 (Spring Boot), Frontend 2 (React JS) y Nuevas Tecnologías (Git/Análisis de Datos).
 
-El modelo propuesto es "Agile-First", donde el módulo de Metodologías Ágiles actúa como el "sistema operativo" (Scrum Master / PMO) del proyecto. Los módulos de BackEnd y FrontEnd operan como dos equipos de desarrollo (Dev Teams) que trabajan en paralelo, con un nivel de integración mínimo (simulado), lo cual refleja un entorno de desarrollo profesional moderno.
+El modelo propuesto es "API-First". El liderazgo lo asume de forma indiscutible el módulo de Backend 2, ya que es el responsable de construir la API REST central, que es el insumo técnico principal para los otros dos módulos.
 
-## B. Concepto Central: "Un Proyecto, Dos Equipos, Un Proceso"
-El proyecto consiste en la "Construcción de una Aplicación Web bajo Metodología Scrum". Cada equipo de estudiantes se dividirá en tres roles funcionales alineados con los módulos:
-- **El Equipo de Gestión (Metodologías):** Actúan como Scrum Masters y Product Owners. Son responsables de definir el "QUÉ" (el Product Backlog, las Historias de Usuario) y gestionar el "CUÁNDO" (los Sprints, las ceremonias).
-- **El Equipo de BackEnd (Back 1):** Actúan como el "Dev Team: Lógica & Datos". Son responsables de construir el modelo de negocio en POO y conectarlo a una base de datos real.
-- **El Equipo de FrontEnd (Front 1):** Actúan como el "Dev Team: UI & Experience". Son responsables de construir la interfaz de usuario, gestionar el DOM y cargar datos de forma asíncrona.
+Los módulos de Frontend 2 y Nuevas Tecnologías actúan como "Consumidores" de esta API, mientras que Nuevas Tecnologías también cumple un rol transversal de "Soporte DevOps" en el manejo de Git.
 
-**La Clave del Desacoplamiento (La Simulación Real):**
-El equipo de FrontEnd **no consumirá la API del equipo de BackEnd**. Esta restricción es una característica pedagógica, no un error. Simula un escenario real donde los equipos de UI deben avanzar (usando datos simulados) sin esperar al equipo de BackEnd. El reto final de ambos es conectarse a una fuente de datos externa (Back a una BD, Front a un JSON local), logrando una perfecta simetría de desafíos.
+## B. Concepto Central: "La API como Fuente Única de Verdad"
+El proyecto consiste en la "Construcción y Consumo de una API REST". Los equipos se estructuran en roles claros con dependencias directas, simulando un entorno de desarrollo profesional:
+
+1. **El Equipo de API (Backend 2):** Actúan como los "Arquitectos de Producto". Son los responsables de diseñar, construir y documentar la API REST que servirá como "fuente única de verdad" para todo el proyecto.
+2. **El Equipo de UI (Frontend 2):** Actúan como el "Consumidor UI". Son responsables de construir una Single-Page Application (SPA) con React que consume la API del equipo de Backend para mostrar y manipular los datos.
+3. **El Equipo de Análisis (Nuevas Tecnologías):** Actúan como el "Consumidor de Datos" y "Soporte DevOps". Tienen un rol dual:
+    - Consumen la API del equipo de Backend para realizar análisis y visualizaciones con Python (Pandas/Matplotlib).
+    - Brindan soporte transversal en la configuración y gestión del repositorio de Git (GitFlow).
 
 ## C. Liderazgo y Dinámica de Módulos (El Porqué y el Cómo)
-El liderazgo cambia fundamentalmente con respecto al Nivel 1.
+El liderazgo es técnico y centralizado en el proveedor de datos (Backend 2).
 
-### 1. Módulo Líder (PMO/Agile Coach): Metodologías Ágiles
-- **Alcance del Planeador (El "PROCESO"):** Este módulo se enfoca 100% en la gestión de proyectos (Manifiesto Ágil, Scrum, Roles, Ceremonias, Artefactos).
-- **Justificación del Liderazgo (El "POR QUÉ"):** En Nivel 1, el líder era el prerrequisito técnico (BD). En Nivel 2, el proyecto ES la metodología. El módulo de Metodologías Ágiles no es un módulo de apoyo; es el PMO (Oficina de Gestión de Proyectos) que dirige el esfuerzo completo. El docente de Metodologías actúa como el "Agile Coach" y sus estudiantes como los Scrum Masters de los equipos.
+### 1. Módulo Líder (Arquitecto de Producto): Backend 2
+- **Alcance del Planeador (El "INSUMO"):** Se enfoca 100% en crear una API RESTful robusta con Spring Boot, conectada a una Base de Datos real (JPA) y probada (JUnit).
+- **Justificación del Liderazgo (El "POR QUÉ"):** Este módulo tiene el mayor peso técnico porque "entrega todo el insumo". El proyecto no puede avanzar sin la API. El artefacto central de todo el semestre es el "Contrato de la API" (la colección de Postman o especificación OpenAPI) que Back 2 debe generar.
+- **Rol:** El docente de Back 2 actúa como el "Chief Architect" del proyecto. Define los modelos, los endpoints y los plazos de entrega de la API.
 
-### 2. Reacción de los Módulos de Apoyo (Los "Dev Teams")
-Los módulos técnicos (Front y Back) actúan como equipos de desarrollo ágil que reaccionan a las directrices del equipo de Metodologías.
+### 2. Reacción de los Módulos de Apoyo (Los "Consumidores")
+- **Módulo de Apoyo: Frontend 2 (Consumidor UI)**
+    - **Alcance del Planeador (La "CARA"):** Se enfoca 100% en React JS (componentes, estado, router) y en el consumo de APIs (fetch/Axios).
+    - **Reacción (El "POR QUÉ"):** Este equipo es un cliente directo de Back 2. Su trabajo está bloqueado hasta que el "Contrato de la API" esté definido (Avance 2). A partir de ahí, su rol es construir la interfaz de usuario que consume dicho contrato.
+- **Módulo de Apoyo: Nuevas Tecnologías (Consumidor de Datos + Soporte DevOps)**
+    - **Alcance del Planeador (El "ANÁLISIS" y el "PROCESO"):** Módulo dual. (S1-S6) Git/GitHub; (S7-S17) Python, Pandas, Matplotlib.
+    - **Reacción (El "POR QUÉ"):** Este equipo es el segundo cliente de Back 2. También dependen del "Contrato de la API" para su proyecto de análisis. Adicionalmente, y dado su planeador (S1-S6), actúan como soporte transversal de Git, ayudando a configurar el repositorio.
 
-**Módulo de Apoyo: BackEnd 1 (Equipo Lógica & Datos)**
-- **Alcance del Planeador (El "MOTOR"):** Se enfoca en POO (Clases, Herencia, Polimorfismo) y Persistencia (Conexión a BD, JPA).
-- **Reacción (El "POR QUÉ"):** Este módulo consume el "Product Backlog" (de Metodologías) para implementar la lógica de negocio. Si Metodologías define la Historia de Usuario "Como usuario, quiero registrarme", este equipo crea la Clase Usuario y el método `guardarUsuarioEnBD()`.
+## D. Estructura de Entregables y Metodología de Seguimiento (Hitos)
+Los avances se estructuran como un flujo "API-First": Definición -> Consumo Simulado -> Integración Real.
 
-**Módulo de Apoyo: FrontEnd 1 (Equipo UI & Experience)**
-- **Alcance del Planeador (La "INTERFAZ"):** Se enfoca en JS (DOM, Eventos, Asincronía) y Carga de Datos (fetch).
-- **Reacción (El "POR QUÉ"):** Este módulo consume el "Product Backlog" (de Metodologías) para implementar la interfaz de usuario. Si Metodologías define la HU "Como usuario, quiero registrarme", este equipo crea el `registro.html` y el `registro.js` que manipula el DOM y carga/valida datos.
+### ⏱️ AVANCE 1 (Semana 6): "Configuración y Arquitectura Base"
+**Objetivo:** Configurar el entorno de colaboración (Git) y tener la arquitectura base de los tres proyectos.
 
-## D. Estructura de Entregables y Metodología de Seguimiento (Sprints)
-Los avances se estructuran como "Sprints", con sus respectivas ceremonias (Review).
-
-### ⏱️ AVANCE 1 (Semana 6): "Sprint 0 - Arquitectura y Product Discovery"
-- **Objetivo:** Definir el proyecto, los roles de Scrum y la arquitectura inicial de ambos sistemas.
-
-**Líder (Metodologías):**
-- **Entregable:** Acta de Constitución del Proyecto y Roles Scrum Definidos.
-- **Alineación (S1-S6):** "Manifiesto Ágil", "Principios Ágiles", "Roles en Scrum (PO, SM, Dev Team)".
-- **Instrucción:** Documento que define el caso de estudio (ej. "App de Tareas", "Mini-Red Social"), los miembros y sus roles.
-
-**Apoyo (Back 1):**
-- **Entregable:** Diagrama de Clases (POO).
-- **Alineación (S1-S6):** "Fundamentos de POO", "Clases y Objetos", "Abstracción", "Encapsulamiento".
-- **Instrucción:** El diagrama de clases (UML) que representa la solución (ej. Clase Tarea, Clase Usuario) con sus atributos y métodos básicos.
-
-**Apoyo (Front 1):**
-- **Entregable:** Mockups o Wireframes de Alta Fidelidad Y Lógica JS Básica.
-- **Alineación (S1-S6):** "Variables en JS", "Condicionales", "Ciclos". (Nota: Se asume que el HTML/CSS de Nivel 1 es la base).
-- **Instrucción:** 1. Los Mockups de las vistas principales. 2. Un archivo `.js` que resuelva un reto de lógica (con condicionales/ciclos) basado en el proyecto.
+- **Líder (Backend 2):**
+    - **Entregable:** Proyecto Spring Boot Inicializado y Modelo de Dominio Definido.
+    - **Alineación (S1-S6):** "Arquitectura de Software", "Introducción a Spring Boot".
+    - **Instrucción:** El proyecto base de Spring Boot y el Diagrama de Clases (o similar) que define las entidades principales (ej. Usuario, Producto). Este es el primer borrador del contrato.
+- **Apoyo (Frontend 2):**
+    - **Entregable:** Proyecto React Inicializado (CRA/Vite) y Wireframes.
+    - **Alineación (S1-S6):** "Introducción a React", "Componentes", "Props", "useState".
+    - **Instrucción:** El proyecto base de React y los wireframes de las vistas principales (Formulario, Lista), basados en el Modelo de Dominio de Back 2.
+- **Apoyo (Nuevas Tecnologías):**
+    - **Entregable:** Repositorio de GitHub Creado y GitFlow Definido.
+    - **Alineación (S1-S6):** "Git (commits, ramas, fusiones)", "GitHub (repositorios, PRs)".
+    - **Instrucción:** Crear el repo del proyecto, definir la estrategia (ej. main, develop, feature/ABC) e incluir un README.md con las reglas de colaboración.
 
 **Metodología de Seguimiento (Avance 1):**
-- El docente de Metodologías (Líder) es el PMO. Recibe el Acta de Constitución y valida que los roles estén claros.
-- El docente de Metodologías comparte el Acta (que define el alcance) con los docentes de Back y Front.
-- El docente de Back 1 valida que el Diagrama de Clases sea coherente con el Acta del proyecto.
-- El docente de Front 1 valida que los Mockups y la lógica sean coherentes con el Acta del proyecto.
+1. El docente de NT (Soporte) crea el repositorio y lo comparte.
+2. El docente de Back 2 (Líder) aprueba el Modelo de Dominio.
+3. El docente de Front 2 valida que los Wireframes se basen en ese Modelo.
 
-### 🏃♂️ AVANCE 2 (Semana 12): "Sprint 1 Review - MVP Funcional Desacoplado"
-- **Objetivo:** Entregar un Producto Mínimo Viable (MVP) funcional en ambas capas, pero sin conexión entre ellas.
+### 🏃‍♂️ AVANCE 2 (Semana 12): "El Contrato API y el Consumo Simulado"
+**Objetivo:** El BackEnd define el "Contrato" oficial. Los consumidores (Front y NT) lo implementan de forma simulada.
 
-**Líder (Metodologías):**
-- **Entregable:** Product Backlog Priorizado (Historias de Usuario) y Estimaciones (Planning Poker).
-- **Alineación (S7-S12):** "Historias de Usuario (CRUD)", "Estimación Ágil (Puntos de Historia)".
-- **Instrucción:** El backlog (en Trello, Jira o Excel) con las HUs del "Sprint 1", priorizadas y estimadas.
-
-**Apoyo (Back 1):**
-- **Entregable:** Clases Java Funcionales (con Herencia y Colecciones).
-- **Alineación (S7-S12):** "Herencia", "Polimorfismo", "Clases Abstractas", "Colecciones (Listas, Mapas)".
-- **Instrucción:** El código Java de las clases del Avance 1, implementando lógica de negocio (ej. `crearTarea()`, `listarTareas()`) y usando colecciones (ej. `List<Tarea>`) para simular la BD en memoria.
-
-**Apoyo (Front 1):**
-- **Entregable:** Aplicación Web Funcional con Manipulación del DOM.
-- **Alineación (S7-S12):** "Manipulación del DOM (Selectores)", "Eventos", "Creación de Nodos (append/remove)".
-- **Instrucción:** La aplicación web (`.html` y `.js`) donde el usuario puede realizar un CRUD (Crear, Leer, Actualizar, Borrar) y la interfaz se actualiza dinámicamente manipulando el DOM (ej. añadir/quitar `<li>` de una lista). Los datos están quemados en un arreglo JS o en `localStorage`.
+- **Líder (Backend 2):**
+    - **Entregable:** El "Contrato de la API" (Colección de Postman) y API Funcional (con datos en memoria).
+    - **Alineación (S7-S12):** "API REST (Controladores, Servicios, Repositorios)", "Manejo de Errores".
+    - **Instrucción:** La API funcional con los endpoints (GET, POST, PUT, DELETE) operando con datos simulados (Colecciones). La Colección de Postman es el entregable CRÍTICO que se comparte a los otros dos módulos.
+- **Apoyo (Frontend 2):**
+    - **Entregable:** App React con CRUD Funcional (Datos Simulados en useState).
+    - **Alineación (S7-S12):** "useEffect", "Formularios", "Renderizado Condicional".
+    - **Instrucción:** La aplicación de React con todas las vistas (formularios, listas) que replican exactamente el "Contrato" de Postman. El CRUD debe funcionar usando useState y arreglos locales.
+- **Apoyo (Nuevas Tecnologías):**
+    - **Entregable:** Script de Análisis de Datos (Pandas) consumiendo los Endpoints GET simulados.
+    - **Alineación (S7-S12):** "Python (Numpy, Pandas)".
+    - **Instrucción:** Un script de Python (.py o Jupyter Notebook) que llama a los endpoints GET de la API (aún con datos simulados) y realiza análisis básicos con Pandas.
 
 **Metodología de Seguimiento (Avance 2):**
-- El docente de Metodologías (Líder) presenta el Backlog y las HUs evaluadas.
-- Se realiza una "Sprint Review":
-  - El docente de Front 1 evalúa la demo del CRUD-DOM, validando que cumpla las HUs definidas por Metodologías.
-  - El docente de Back 1 evalúa el código POO, validando que implemente la lógica de las HUs definidas por Metodologías.
+1. El docente de Back 2 (Líder) entrega y "congela" el "Contrato API" (Postman).
+2. El docente de Front 2 evalúa que la app de React cumpla funcionalmente con ese "Contrato".
+3. El docente de NT evalúa que el script de Python consuma exitosamente ese "Contrato".
 
-### 🏆 AVANCE 3 (Semana 17): "Sprint 2 Review - Producto Final con Datos Externos"
-- **Objetivo:** Entregar las dos aplicaciones completas, cada una conectada a su propia fuente de datos externa.
+### 🏆 AVANCE 3 (Semana 17): "La Integración Full-Stack Total"
+**Objetivo:** Conectar todas las piezas a la API final y persistente.
 
-**Líder (Metodologías):**
-- **Entregable:** Gestión del Sprint 2 (Burndown Chart) y Ceremonia de Retrospectiva.
-- **Alineación (S13-S17):** "Sprints", "Ceremonias (Daily, Review, Retro)", "Métricas (Burndown)".
-- **Instrucción:** 1. El tablero Kanban (Trello) finalizado. 2. Un Burndown chart que muestre el progreso. 3. El acta de la Retrospectiva del equipo.
-
-**Apoyo (Back 1):**
-- **Entregable:** Aplicación de Consola POO con Conexión a Base de Datos.
-- **Alineación (S13-S16):** "JDBC / JPA", "Mapeo O-R", "Conexión a BD".
-- **Instrucción:** El código Java del Avance 2, pero ahora los métodos (`crearTarea()`, `listarTareas()`) se conectan a una base de datos real (Relacional) y guardan/leen la información.
-
-**Apoyo (Front 1):**
-- **Entregable:** Aplicación Web DOM con Carga Asíncrona de Datos (fetch).
-- **Alineación (S13-S16):** "Asincronía (Promesas)", "localStorage", "Manejo de JSON", "Consumo de API con fetch()".
-- **Instrucción:** Refactorizar la aplicación del Avance 2. Debe cargar su lista inicial de datos de forma asíncrona desde un archivo `.json` local (ej. `tareas.json`) usando `fetch()`. (Opcional: puede seguir usando localStorage para guardar nuevos datos, pero debe leer desde el JSON).
+- **Líder (Backend 2):**
+    - **Entregable:** API REST Final, Conectada a BD (JPA) y Probada (JUnit).
+    - **Alineación (S13-S17):** "Spring Data JPA", "Pruebas Unitarias (JUnit)", "Seguridad Básica".
+    - **Instrucción:** La API del Avance 2, pero ahora los repositorios están conectados a una base de datos real usando JPA.
+- **Apoyo (Frontend 2):**
+    - **Entregable:** App React Final, CONECTADA a la API de Back 2 y con Enrutamiento.
+    - **Alineación (S13-S17):** "React Router", "Consumo de APIs (fetch/Axios)".
+    - **Instrucción:** La aplicación de React del Avance 2, pero ahora los datos simulados se eliminan. Se usa useEffect y fetch/axios para llamar realmente a los endpoints de la API de Spring Boot.
+- **Apoyo (Nuevas Tecnologías):**
+    - **Entregable:** Reporte Final de Análisis de Datos (con Visualización) consumiendo la API real.
+    - **Alineación (S13-S17):** "Visualización (Matplotlib, Plotly)", "Reportes HTML".
+    - **Instrucción:** El script de Python del Avance 2, ahora consumiendo la API final (conectada a la BD real) y generando un reporte con visualizaciones.
 
 **Metodología de Seguimiento (Avance 3):**
-- Se realiza la "Sprint Review Final" (Semana 17).
-- El docente de Metodologías (Líder) actúa como "Host", presentando el Burndown Chart y el acta de Retrospectiva, evaluando el proceso.
-- El docente de Front 1 evalúa la demo final (CRUD con fetch a JSON local), evaluando el producto UI.
-- El docente de Back 1 evalúa la demo final (CRUD con BD), evaluando el producto Lógica/Datos.
+1. Se realiza la "Demo Final de Integración" (Semana 17).
+2. El docente de Back 2 (Líder) valida que la BD está siendo actualizada.
+3. El docente de Front 2 valida que la UI consume la API real.
+4. El docente de NT presenta su reporte analítico basado en los datos reales de la API.
 
 ## E. Roles y Responsabilidades de los Docentes (Resumen)
 
-**Docente de Metodologías Ágiles (Líder de Proyecto / Agile Coach):**
-- Actúa como PMO del PI.
-- Define y aprueba los casos de estudio (Semana 2).
-- Recolecta los artefactos de gestión (Actas, Backlogs, HUs, Burndowns) en cada Avance (S6, S12, S17).
-- Lidera las ceremonias (Sprint Reviews) y asegura que los equipos de Front y Back estén sincronizados conceptualmente.
-- Evalúa el Componente de Metodologías.
-
-**Docente de BackEnd 1 (Líder Técnico BackEnd):**
-- Actúa como "Tech Lead" del equipo de BackEnd.
-- Define los requisitos técnicos de su entregable (ej. "Usar JPA", "Aplicar Herencia").
-- Reacciona al Backlog de Metodologías para guiar a sus estudiantes en la implementación.
-- Evalúa el Componente de BackEnd 1 (Avances 1, 2 y 3).
-
-**Docente de FrontEnd 1 (Líder Técnico FrontEnd):**
-- Actúa como "Tech Lead" del equipo de FrontEnd.
-- Define los requisitos técnicos de su entregable (ej. "Usar fetch a JSON local").
-- Reacciona al Backlog de Metodologías para guiar a sus estudiantes en la implementación.
-- Evalúa el Componente de FrontEnd 1 (Avances 1, 2 y 3).
+- **Docente de Backend 2 (Líder de Producto / Arquitecto):**
+    - Actúa como "Chief Architect" y "Dueño del Producto".
+    - Define el "Contrato de la API" (Postman) para el Avance 2.
+    - Es el punto central de comunicación y el responsable de resolver bloqueos técnicos.
+    - Guía la creación de la API, conexión a BD y pruebas.
+- **Docente de Frontend 2 (Líder Técnico UI):**
+    - Actúa como "Tech Lead" del equipo UI (Consumidor 1).
+    - Reacciona al "Contrato de la API" para guiar el desarrollo de React.
+    - Asegura que la UI cumpla con las especificaciones del "Contrato".
+- **Docente de Nuevas Tecnologías (Líder de Análisis / Soporte DevOps):**
+    - Actúa como "Tech Lead" del equipo de Análisis (Consumidor 2).
+    - Reacciona al "Contrato de la API" para guiar el proyecto de Python.
+    - Brinda soporte transversal en la configuración y uso del repositorio de Git.
 
 ## F. Evaluación del Componente de Integración
-En Nivel 2, no hay un "Componente 4" (Documento Conceptual). La integración es el módulo de Metodologías Ágiles en sí mismo.
-- La nota del módulo de Metodologías Ágiles es la nota de integración.
-- Esta nota debe tener un peso (ej. 20-30%) en la nota final de los módulos de BackEnd 1 y FrontEnd 1, para asegurar que los estudiantes técnicos se tomen en serio el proceso ágil.
+- La Integración Técnica (la conexión Front-Back y NT-Back) es el hito principal de Nivel 3. Su éxito (demostrado en el Avance 3) debe tener un peso significativo en la nota de los tres módulos.
+- El "Contrato de la API" (Avance 2) es el entregable más crítico y debe ser evaluado rigurosamente por los tres docentes.
 
 ## G. Entrega y Cierre (Semana 17)
-La Semana 17 se dedica exclusivamente a la "Sprint Review Final" y "Retrospectiva".
-- Se considera un proyecto "listo" cuando los dos Dev Teams (Front y Back) entregan sus MVP funcionales y conectados a sus respectivas fuentes de datos (BD y JSON local), y el equipo de Metodologías entrega los artefactos (Backlog, Burndown, etc.) que gestionaron el proceso.
+- La Semana 17 se dedica a la Demo Full-Stack y la presentación del Reporte de Análisis de Datos.
+- El proyecto está "listo" cuando la aplicación de React puede crear un dato, y el reporte de Análisis de Datos puede reflejar ese nuevo dato tras consumir la API.
